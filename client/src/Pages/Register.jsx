@@ -1,12 +1,12 @@
 import {  useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import axios from "axios"
 
 function Register() {
   const [name,setname]= useState('')
   const [email,setemail]= useState('')
   const [password,setpassword]= useState('')
-
+  const [SignupValues,setSignupValues]= useState(false)
 
   const registerUser=async(e)=>{
     e.preventDefault()
@@ -18,11 +18,15 @@ function Register() {
       })
   
       alert("Successfully Register now can log in")
+      setSignupValues(true)
     }
     catch(error){
       alert("Register Failed, Please try again after some time")
     }
     
+  }
+  if(SignupValues){
+    return <Navigate to={"/login"}/>
   }
 
 
