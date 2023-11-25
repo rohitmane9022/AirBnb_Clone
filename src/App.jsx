@@ -6,6 +6,7 @@ import Layout from './Pages/Layout'
 import Register from './Pages/Register'
 import Login from './Pages/login'
 import axios from 'axios'
+import AccountPages from './Pages/AccountPages'
 
 axios.defaults.baseURL="https://booking-app.rohitmane2.repl.co"
 axios.defaults.withCredentials=true
@@ -19,6 +20,8 @@ function App() {
       <Route index element={<IndexPages/>}/>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/account/:subpage?' element={<AccountPages/>}/>
+      <Route path='/account/:subpage/:action' element={<AccountPages/>}/>
       
       </Route>
     </Routes>

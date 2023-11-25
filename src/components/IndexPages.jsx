@@ -6,7 +6,7 @@ function IndexPages() {
   console.log(user)
   return (
     <div>
- 
+      landing Pages
     </div>
   )
 }
