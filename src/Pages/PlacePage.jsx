@@ -27,6 +27,24 @@ function PlacePage() {
     setphotoLink("")
   }
 
+  const uploadfromdevice=async(e)=>{
+    e.preventDefault()
+    const files= e.target.files
+    const data= new FormData()
+    for(let i=0;i<files.length;i++){
+      data.append('photos', files[i])
+    }
+    await axios.post("/upload", data,{
+      headers:{"Content-type":'multipart/form-data'}
+    }).then(res=>{
+      const {data:filename}= res
+      console.log(filename)
+       setaddedPhotos(pre=>{
+      return [...pre, ...filename]
+    })
+    })
+  }
+
   return (
     <div>
 
@@ -56,14 +74,16 @@ function PlacePage() {
               <input value={photoLink} onChange={(e) => setphotoLink(e.target.value)} type="text" placeholder="Add using a link ...jpg" />
               <button className="bg-gray-200 px-4 rounded-2xl" onClick={addPhotoByLink}>Add&nbsp;photo</button>
             </div>
-
-            <div className="mt-2 grid  grid-cols-3 lg:grid-cols-6 md:grid-cols-4">
+            
+            <div className="mt-2 grid gap-2 grid-cols-3 lg:grid-cols-6 md:grid-cols-4">
              {addedPhotos.length> 0 && addedPhotos.map(link=>(
-              <div>
-                <img src={`https://booking-app.rohitmane2.repl.co/uploads/${link}`} />
+              <div key={addedPhotos.length} className="h-32 flex">
+                <img className="rounded-2xl w-full object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+link} />
               </div>
              ))}
-              <button className="flex justify-center gap-1 border bg-transparent rounded-2xl p-8 text-2xl text-gray-600">
+              <label className="flex justify-center gap-1 border bg-transparent rounded-2xl p-4
+              items-center text-2xl text-gray-600 cursor-pointer h-32">
+                <input multiple type="file" className="hidden " onChange={uploadfromdevice}/>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                   <path
                     strokeLinecap="round"
@@ -72,7 +92,7 @@ function PlacePage() {
                   />
                 </svg>
                 Upload
-              </button>
+              </label>
             </div>
             <h2 className="text-2xl mt-4">Description</h2>
             <p className="text-gray-500 text-sm">description of the place</p>

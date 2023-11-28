@@ -4,7 +4,7 @@ import { Route,Routes } from 'react-router'
 import IndexPages from './components/IndexPages'
 import Layout from './Pages/Layout'
 import Register from './Pages/Register'
-import Login from './Pages/login'
+import Login from "./Pages/Login"
 import axios from 'axios'
 import AccountPages from './Pages/AccountPages'
 
