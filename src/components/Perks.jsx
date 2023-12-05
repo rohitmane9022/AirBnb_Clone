@@ -8,13 +8,16 @@ function Perks({selected,onChange}) {
     }
     else{
       onChange([...selected.filter(selecteName=> selecteName !== name)])
+      
     }
+
+    console.log(selected)
 
   }
   return (
     <>
       <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="wifi" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("wifi")} name="wifi" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"
@@ -26,7 +29,7 @@ function Perks({selected,onChange}) {
                 <span>Wifi</span>
               </label>
               <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="parking" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("parking")} name="parking" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"
@@ -38,7 +41,7 @@ function Perks({selected,onChange}) {
                 <span>Free parking spot</span>
               </label>
               <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="tv" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("tv")} name="tv" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"
@@ -50,7 +53,7 @@ function Perks({selected,onChange}) {
                 <span>Tv</span>
               </label>
               <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="radio" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("radio")} name="radio" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"
@@ -62,7 +65,7 @@ function Perks({selected,onChange}) {
                 <span>Radio</span>
               </label>
               <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="pets" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("pets")} name="pets" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"
@@ -74,7 +77,7 @@ function Perks({selected,onChange}) {
                 <span>Pets</span>
               </label>
               <label className="border p-4 rounded-2xl flex gap-2 items-center cursor-pointer">
-                <input type="checkbox" name="entrance" onChange={handleCheckBoxClick} />
+                <input type="checkbox" checked={selected.includes("entrance")} name="entrance" onChange={handleCheckBoxClick} />
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                   <path
                     strokeLinecap="round"

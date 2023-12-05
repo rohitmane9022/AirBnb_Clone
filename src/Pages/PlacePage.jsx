@@ -1,54 +1,19 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import Perks from "../components/Perks";
+
+import { Link } from "react-router-dom";
+import AccountNavigation from "./AccountNavigation";
+import { useEffect, useState } from "react";
 import axios from "axios";
-
 function PlacePage() {
-  const { action } = useParams();
+  const [placeAll,setplaceAll]= useState([])
 
-  const [title, settitle] = useState("");
-  const [address, setaddress] = useState("");
-  const [addedPhotos, setaddedPhotos] = useState([]);
-  const [photoLink, setphotoLink] = useState("");
-  const [description, setdescription] = useState("");
-  const [perks, setperks] = useState([]);
-  const [extraInfo, setextraInfo] = useState("");
-  const [checkIn, setcheckIn] = useState("");
-  const [checkOut, setcheckOut] = useState("");
-  const [maxguest, setmaxguest] = useState("");
+  useEffect(()=>{
+    axios.get('/place').then(({data})=> setplaceAll(data.AllPlace))
+  },[])
 
-  const addPhotoByLink=async(e)=>{
-    e.preventDefault()
-
-    const {data:filename}=  await axios.post("/upload-by-link", {link:photoLink})
-    setaddedPhotos(pre=>{
-      return [...pre, filename]
-    })
-    setphotoLink("")
-  }
-
-  const uploadfromdevice=async(e)=>{
-    e.preventDefault()
-    const files= e.target.files
-    const data= new FormData()
-    for(let i=0;i<files.length;i++){
-      data.append('photos', files[i])
-    }
-    await axios.post("/upload", data,{
-      headers:{"Content-type":'multipart/form-data'}
-    }).then(res=>{
-      const {data:filename}= res
-      console.log(filename)
-       setaddedPhotos(pre=>{
-      return [...pre, ...filename]
-    })
-    })
-  }
-
+  console.log(placeAll)
   return (
     <div>
-
-      {action !== "new" && (
+    <AccountNavigation/>
         <div className="text-center">
           <Link className="inline-flex gap-1 bg-primary text-white py-2 px-6 rounded-full" to={"/account/place/new"}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -57,86 +22,22 @@ function PlacePage() {
             Add new places
           </Link>
         </div>
-      )}
-
-      {action === "new" && (
-        <div>
-          <form>
-            <h2 className="text-2xl mt-4">Title</h2>
-            <p className="text-gray-500 text-sm">Title for your place. should be short and catchy as in adventure</p>
-            <input type="text" value={title} onChange={(e) => settitle(e.target.value)} placeholder="title, for example: My lovely apt" />
-            <h2 className="text-2xl mt-4">Address</h2>
-            <p className="text-gray-500 text-sm">Address to this place</p>
-            <input type="text" value={address} onChange={(e) => setaddress(e.target.value)} placeholder="address" />
-            <h2 className="text-2xl mt-4">Photos</h2>
-            <p className="text-gray-500 text-sm">More = Better</p>
-            <div className="flex gap-2">
-              <input value={photoLink} onChange={(e) => setphotoLink(e.target.value)} type="text" placeholder="Add using a link ...jpg" />
-              <button className="bg-gray-200 px-4 rounded-2xl" onClick={addPhotoByLink}>Add&nbsp;photo</button>
-            </div>
-            
-            <div className="mt-2 grid gap-2 grid-cols-3 lg:grid-cols-6 md:grid-cols-4">
-             {addedPhotos.length> 0 && addedPhotos.map(link=>(
-              <div key={addedPhotos.length} className="h-32 flex">
-                <img className="rounded-2xl w-full object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+link} />
+        <div className="mt-4" >
+          {placeAll.length>0 && placeAll.map(place=>(
+            <Link to={"/account/place/"+place._id} className="flex gap-4 cursor-pointer bg-gray-100 p-4 rounded-2xl" key={place.length}>
+              <div className=" flex object-cover w-32 h-32 bg-gray-300 grow shrink-0">
+                {place.photos.length>0 &&(
+                  <img src={"https://booking-app.rohitmane2.repl.co/uploads/"+place.photos[0]} alt={place.photos[0]} />
+                )}
               </div>
-             ))}
-              <label className="flex justify-center gap-1 border bg-transparent rounded-2xl p-4
-              items-center text-2xl text-gray-600 cursor-pointer h-32">
-                <input multiple type="file" className="hidden " onChange={uploadfromdevice}/>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                  />
-                </svg>
-                Upload
-              </label>
-            </div>
-            <h2 className="text-2xl mt-4">Description</h2>
-            <p className="text-gray-500 text-sm">description of the place</p>
-            <textarea value={description} onChange={(e) => setdescription(e.target.value)} />
-
-            <h2 className="text-2xl mt-4">Perks</h2>
-            <p className="text-gray-500 text-sm">select all the perks of your place</p>
-            <div className="grid mt-2 gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-              <Perks selected={perks} onChange={setperks} />
-            </div>
-
-            <h2 className="text-2xl mt-4">Extra Info</h2>
-            <p className="text-gray-500 text-sm">How many Hours.</p>
-            <textarea value={extraInfo} onChange={(e) => setextraInfo(e.target.value)} />
-
-            <h2 className="text-2xl mt-4">Check in$out times, max guests</h2>
-            <p className="text-gray-500 text-sm">add check in and out time, remember to have how many guest are coming</p>
-            <div className=" grid  sm:grid-cols-3 gap-2">
-              <div>
-                <h3 className="mt-2 -mb-1">Check in time</h3>
-                <input type="text" 
-                placeholder="2pm"
-                 value={checkIn}
-                 onChange={(e) => setcheckIn(e.target.value)} />
+              <div className="grow-0 shrink">
+              <h2 className="text-xl">{place.title}</h2>
+              <p className="text-sm mt-2">{place.description}</p>
               </div>
-              <div>
-                <h3 className="mt-2 -mb-1">Check in out</h3>
-                <input type="text" 
-                placeholder="11" 
-                value={checkOut}
-                 onChange={(e) => setcheckOut(e.target.value)} />
-              </div>
-              <div>
-                <h3 className="mt-2 -mb-1">Max number of guests </h3>
-                <input type="text" 
-                placeholder="1" 
-                value={maxguest} 
-                onChange={(e) => setmaxguest(e.target.value)} />
-              </div>
-            </div>
-            <button className="primary my-4">Save</button>
-          </form>
+              
+            </Link>
+          ))}
         </div>
-      )}
     </div>
   );
 }
