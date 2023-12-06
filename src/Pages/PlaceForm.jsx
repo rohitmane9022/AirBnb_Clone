@@ -19,9 +19,9 @@ function PlaceForm() {
   const [extraInfo, setextraInfo] = useState("");
   const [checkIn, setcheckIn] = useState("");
   const [checkOut, setcheckOut] = useState("");
-  const [maxguest, setmaxguest] = useState("");
+  const [maxGuest, setmaxGuest] = useState("");
   const [redirect,setredirect]= useState(false)
-
+  const [Price,setPrice] = useState(100)
   useEffect(()=>{
     if(!id){
       return
@@ -39,7 +39,8 @@ function PlaceForm() {
         setextraInfo(data.extraInfo)
         setcheckIn(data.checkIn)
         setcheckOut(data.checkOut)
-        setmaxguest(data.maxguest)
+        setmaxGuest(data.maxGuest)
+        setPrice(data.Price)
       })
         
   },[id])
@@ -48,7 +49,7 @@ function PlaceForm() {
   const savePlace= async(e)=>{
     e.preventDefault()
     const placeData={
-      title,address,addedPhotos,description,perks,extraInfo,checkIn,checkOut,maxguest
+      title,address,addedPhotos,description,perks,extraInfo,checkIn,checkOut,maxGuest,Price
     }
     if(id){
       await axios.put("/place", {id,...placeData})
@@ -97,7 +98,7 @@ function PlaceForm() {
 
             <h2 className="text-2xl mt-4">Check in and out times, max guests</h2>
             <p className="text-gray-500 text-sm">add check in and out time, remember to have how many guest are coming</p>
-            <div className=" grid  sm:grid-cols-3 gap-2">
+            <div className=" grid grid-cols-2 gap-2 md:grid-cols-4">
               <div>
                 <h3 className="mt-2 -mb-1">Check in time</h3>
                 <input type="text" 
@@ -116,11 +117,18 @@ function PlaceForm() {
                 <h3 className="mt-2 -mb-1">Max number of guests </h3>
                 <input type="text" 
                 placeholder="1" 
-                value={maxguest} 
-                onChange={(e) => setmaxguest(e.target.value)} />
+                value={maxGuest} 
+                onChange={(e) => setmaxGuest(e.target.value)} />
+              </div>
+              <div>
+                <h3 className="mt-2 -mb-1">Price per Night</h3>
+                <input type="text" 
+                placeholder="1" 
+                value={Price} 
+                onChange={(e) => setPrice(e.target.value)} />
               </div>
             </div>
-            <button className="primary my-4" type='submit'>Save</button>
+            <button className="primary my-4" type='submit' onClick={console.log("click")}>Save</button>
           </form>
         </div>
     
