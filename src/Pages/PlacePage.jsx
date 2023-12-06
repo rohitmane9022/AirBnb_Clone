@@ -7,7 +7,7 @@ function PlacePage() {
   const [placeAll,setplaceAll]= useState([])
 
   useEffect(()=>{
-    axios.get('/place').then(({data})=> setplaceAll(data.AllPlace))
+    axios.get('/user-place').then(({data})=> setplaceAll(data.AllPlace))
   },[])
 
   console.log(placeAll)

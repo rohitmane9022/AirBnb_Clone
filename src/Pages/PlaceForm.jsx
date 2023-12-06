@@ -74,7 +74,7 @@ function PlaceForm() {
           <form onSubmit={savePlace}>
             <h2 className="text-2xl mt-4">Title</h2>
             <p className="text-gray-500 text-sm">Title for your place. should be short and catchy as in adventure</p>
-            <input type="text"  onChange={(e) => settitle(e.target.value)} placeholder="title, for example: My lovely apt" />
+            <input type="text" value={title} onChange={(e) => settitle(e.target.value)} placeholder="title, for example: My lovely apt" />
             <h2 className="text-2xl mt-4">Address</h2>
             <p className="text-gray-500 text-sm">Address to this place</p>
             <input type="text" value={address} onChange={(e) => setaddress(e.target.value)} placeholder="address" />
@@ -95,7 +95,7 @@ function PlaceForm() {
             <p className="text-gray-500 text-sm">How many Hours.</p>
             <textarea value={extraInfo} onChange={(e) => setextraInfo(e.target.value)} />
 
-            <h2 className="text-2xl mt-4">Check in$out times, max guests</h2>
+            <h2 className="text-2xl mt-4">Check in and out times, max guests</h2>
             <p className="text-gray-500 text-sm">add check in and out time, remember to have how many guest are coming</p>
             <div className=" grid  sm:grid-cols-3 gap-2">
               <div>
@@ -120,7 +120,7 @@ function PlaceForm() {
                 onChange={(e) => setmaxguest(e.target.value)} />
               </div>
             </div>
-            <button className="primary my-4">Save</button>
+            <button className="primary my-4" type='submit'>Save</button>
           </form>
         </div>
     
