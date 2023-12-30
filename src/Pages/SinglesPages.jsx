@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
+import BookingWindow from "./BookingWindow";
 
 export default function SinglesPages() {
   const {id}= useParams()
@@ -37,31 +38,32 @@ Close photo</button>
   }
 
   return (
-    <div className="mt-4 -mx-8 px-8 py-8 max-w-[1200px] mx-auto">
+    <div className="mt-4 -mx-8 px-8 pt-8 max-w-[1300px]  mx-auto">
       <h1 className="text-3xl">{Place.title}</h1>
       <a className="my-2 block font-semibold underline flex gap-1" href={"https://maps.google.com/?q="+Place.address} target="blank" ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
   <path fillRule="evenodd" d="m11.54 22.351.07.04.028.016a.76.76 0 0 0 .723 0l.028-.015.071-.041a16.975 16.975 0 0 0 1.144-.742 19.58 19.58 0 0 0 2.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 0 0-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 0 0 2.682 2.282 16.975 16.975 0 0 0 1.145.742ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clipRule="evenodd" />
 </svg>
 {Place.address}
 </a>
-      <div className="relative">
-      <div className="grid gap-2 grid-cols-[2fr_1fr] rounded-3xl overflow-hidden">
-       <div>
+      <div className="relative min-w-[1200px] min-h-[10px] grid">
+      <div className="grid gap-2 grid-cols-[2fr_1fr] grid-rows-1 rounded-3xl overflow-hidden min-w-[1200px]">
+       <div className="grid">
         {Place.photos?.[0] &&(
           <div >
-             <img className="aspect-square object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[0]} alt="" />
+             <img className=" 	h-[100%]	" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[0]} alt="" />
           </div>
          
         )}
-       </div>
-       <div className=" grid">
+        </div>
+        
+       <div className=" grid gap-1">
        {Place.photos?.[1] &&(
-          <img className="aspect-square object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[1]} alt="" />
+          <img className="object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[1]} alt="" />
         )}
-        <div className="overflow-hidden">
+        <div className="">
         {Place.photos?.[2] &&(
 
-<img className="aspect-square object-cover relative top-2" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[2]} alt="" />
+<img className="overflow-hidden" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[2]} alt="" />
 )}
         </div>
         
@@ -74,6 +76,28 @@ Close photo</button>
 Show more photos</button>
       </div>
      
+
+      <div className="mt-8 mb-8 grid gap-8 grid-cols-1  md:grid-cols-[2fr_1fr]">
+        
+        <div>
+        <div className="my-4">
+      <h2 className="font-semibold text-2xl">Description</h2>
+      {Place.description}</div>
+      Check-in: {Place.checkIn}<br/>
+      Check-out: {Place.checkOut}<br/>
+        Max number of guest: {Place.maxGuest}
+        
+      </div>
+      <div>
+       <BookingWindow Place={Place}/>
+      </div>
+      </div>
+      <div>
+      <div>
+        <h2 className="font-semibold text-2xl border-t">Extra Info</h2>
+      </div>
+      <div className="mb-4 mt-2 text-sm text-gray-700 leading-100">{Place.extraInfo}</div>
+      </div>
     </div>
   )
 }

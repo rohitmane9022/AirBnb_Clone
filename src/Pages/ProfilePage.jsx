@@ -9,7 +9,7 @@ import AccountNavigation from "./AccountNavigation"
 
 function ProfilePage() {
   const {user,ready,setuser}= useContext(UserContext)
-  const [redirect,setredirect]=useState(null)
+  const [redirect,setredirect]=useState(false)
 
   let {subpage}= useParams()
 
@@ -30,11 +30,11 @@ function ProfilePage() {
   const Logout=async()=>{
       await axios.post("/logout")
       setuser(null)
-    setredirect("/")
+    setredirect(true)
 
   }
 if(redirect){
-  return <Navigate to={redirect}/>
+  return <Navigate to={"/"}/>
 }
   return (
     <div>
