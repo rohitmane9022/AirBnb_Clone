@@ -50,7 +50,7 @@ Close photo</button>
        <div className="grid">
         {Place.photos?.[0] &&(
           <div >
-             <img className=" 	h-[100%]	" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[0]} alt="" />
+             <img onClick={()=> setShowAllPhoto(true)} className="cursor-pointer h-[100%]	" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[0]} alt="" />
           </div>
          
         )}
@@ -58,12 +58,12 @@ Close photo</button>
         
        <div className=" grid gap-1">
        {Place.photos?.[1] &&(
-          <img className="object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[1]} alt="" />
+          <img onClick={()=> setShowAllPhoto(true)} className="cursor-pointer object-cover" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[1]} alt="" />
         )}
         <div className="">
         {Place.photos?.[2] &&(
 
-<img className="overflow-hidden" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[2]} alt="" />
+<img onClick={()=> setShowAllPhoto(true)} className="cursor-pointer overflow-hidden" src={`https://booking-app.rohitmane2.repl.co/uploads/`+Place.photos[2]} alt="" />
 )}
         </div>
         
@@ -92,11 +92,11 @@ Show more photos</button>
        <BookingWindow Place={Place}/>
       </div>
       </div>
+      <div className="border-t bg-neutral-50 -mx-20 px-8 py-8">
       <div>
-      <div>
-        <h2 className="font-semibold text-2xl border-t">Extra Info</h2>
+        <h2 className="font-semibold text-2xl ">Extra Info</h2>
       </div>
-      <div className="mb-4 mt-2 text-sm text-gray-700 leading-100">{Place.extraInfo}</div>
+      <div className="mb-4 mt-2 text-sm text-gray-700 leading-5 ">{Place.extraInfo}</div>
       </div>
     </div>
   )

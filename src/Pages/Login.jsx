@@ -14,14 +14,30 @@ const {setuser} = useContext(UserContext)
    
     e.preventDefault()
     try{
-     const {data}= await axios.post("/login",{email,password},)
-      setuser(data)
-      alert("Login Successfully")
-      setredirect(true)
+     const {data}= await axios.post("/login",{email,password})
+     console.log(data)
+     if(data.email==="" || data.password===""){
+       setuser(null)
+      alert("failed")
+       setredirect(false)
+     }
+     else if (data==="not found"){
+      setuser(null)
+      alert("failed please resgister email then come back")
+       setredirect(false)
+     }
+
+     else{
+       setuser(data)
+       alert("Login Successfully")
+       setredirect(true)
+     }
+      
+     
       
     }
     catch(error){
-      alert("Login failed")
+      alert("Please provide both email and password")
     }
 
   }
