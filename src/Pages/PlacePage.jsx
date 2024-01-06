@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AccountNavigation from "./AccountNavigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import PlaceImg from "./PlaceImg";
 function PlacePage() {
   const [placeAll,setplaceAll]= useState([])
 
@@ -24,9 +25,7 @@ function PlacePage() {
           {placeAll.length>0 && placeAll.map(place=>(
             <Link to={"/account/place/"+place._id} className="flex gap-4 cursor-pointer bg-gray-100 p-4 rounded-2xl" key={place._id}>
               <div className=" flex object-cover w-32 h-32 bg-gray-300 grow shrink-0" >
-                {place.photos.length>0 &&(
-                  <img key={place.photos.length} src={"https://booking-app.rohitmane2.repl.co/uploads/"+place.photos[0]} alt={place.photos[0]} />
-                )}
+                <PlaceImg place={place}/>
               </div>
               <div className="grow-0 shrink">
               <h2 className="text-xl">{place.title}</h2>

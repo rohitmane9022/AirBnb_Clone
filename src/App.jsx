@@ -11,8 +11,10 @@ import ProfilePage from './Pages/ProfilePage'
 import PlacePage from './Pages/PlacePage'
 import PlaceForm from './Pages/PlaceForm'
 import SinglesPages from './Pages/SinglesPages'
+import BookingPages from './Pages/BookingPages'
+import BookingSinglePages from './Pages/BookingSinglePages'
 
-axios.defaults.baseURL="https://booking-app.rohitmane2.repl.co"
+axios.defaults.baseURL="https://c681ca78-c502-4b52-9e91-8023e3f31f7e-00-2vurzb2dpjbur.asia-b.replit.dev"
 axios.defaults.withCredentials=true
 
 function App() {
@@ -26,9 +28,13 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/account' element={<ProfilePage/>}/>
       <Route path='/account/place' element={<PlacePage/>}/>
+      <Route path='/account/booking' element={<BookingPages/>}/>
+
       <Route path='/account/place/new' element={<PlaceForm/>}/>
       <Route path='/account/place/:id' element={<PlaceForm/>}/>
       <Route path='/place/:id' element={<SinglesPages/>}/>
+      
+      <Route path='/account/bookings/:id' element={<BookingSinglePages/>}/>
       </Route>
     </Routes>
     </>
