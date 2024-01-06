@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 
 #Here is Replit Link for Api and nodes
-[(https://replit.com/@RohitMane2/Booking-App#index.js)]
+https://replit.com/@RohitMane2/Booking-App#index.js
