@@ -34,7 +34,7 @@ function App() {
       <Route path='/account/place/:id' element={<PlaceForm/>}/>
       <Route path='/place/:id' element={<SinglesPages/>}/>
       
-      <Route path='/account/bookings/:id' element={<BookingSinglePages/>}/>
+      <Route path='/account/booking/:id' element={<BookingSinglePages/>}/>
       </Route>
     </Routes>
     </>
